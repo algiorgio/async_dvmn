@@ -4,10 +4,9 @@ import curses
 
 def draw(canvas):
     row, column = (5, 20)
-    canvas.addstr(row, column, 'Hello, World!', curses.A_BOLD)
+    canvas.addstr(row, column, 'Hello, World!')
     canvas.refresh()
-    canvas.border()
-    time.sleep(3)
+    time.sleep(1)
 
 
 if __name__ == '__main__':

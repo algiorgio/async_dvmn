@@ -3,6 +3,9 @@ import time
 import curses
 
 
+TIC_TIMEOUT = 0.1
+
+
 def blink_old(canvas):
     while True:
         try:
@@ -55,13 +58,18 @@ async def blink(canvas, row, col, symbol='*'):
 
 
 def draw(canvas, row, col):
-    coroutine = blink(canvas, row, col)
+    cor_list = []
+
+    for x in range(1, 10, 2):
+        cor_list.append(blink(canvas, row, x))
+
     while True:
-        try:
-            coroutine.send(None)
-        except StopIteration:
-            break
-        time.sleep(1)
+        for coroutine in cor_list:
+            try:
+                coroutine.send(None)
+            except StopIteration:
+                break
+        time.sleep(0.1)
 
 
 if __name__ == '__main__':
